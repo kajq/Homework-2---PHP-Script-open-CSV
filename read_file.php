@@ -1,16 +1,20 @@
 <?php
-$fp = fopen("products.csv", "r");
-while (( $data = fgetcsv ( $fp , 2048, "," )) !== false ) { // Mientras hay líneas que leer...
-
-$i = 0; 
-foreach($data as $row) {
-echo "$row\n"; // Muestra todos los campos de la fila actual 
-$i++ ;
-
+$input = $argv[1] ;
+if (($gestor = fopen($input, "r")) !== FALSE) {
+    while (($datos = fgetcsv($gestor, 1000, ",")) !== FALSE) {
+        $numero = count($datos);
+        $print = "";
+        for ($c=0; $c < $numero; $c++) {
+        	if ($datos[$c] <> "") {
+        		echo $datos[$c] . " | ";
+        		
+        	} else {
+        		echo "\n";
+        	}
+        }
+        echo "\n";
+    }
+    fclose($gestor);
 }
-
-echo "\n";
-
-} 
-fclose ( $fp ); 
 ?>
+
